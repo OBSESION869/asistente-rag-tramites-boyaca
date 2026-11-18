@@ -1,1 +1,182 @@
-
+[
+  {
+    "id": "SUIT-BOY-001",
+    "titulo": "Expedición de Licencia de Conducción por Primera Vez",
+    "entidad": "Secretaría de Tránsito y Transporte / Organismos de Tránsito de Boyacá",
+    "requisitos": "1. Inscripción activa en el RUNT. 2. Cédula de Ciudadanía o Tarjeta de Identidad original. 3. Certificado de aptitud en conducción (CEA autorizado). 4. Certificado de examen físico, mental y de coordinación motriz (CRC). 5. Paz y salvo de multas en SIMIT.",
+    "costo": "Entre $220.000 y $275.000 COP según categoría (A2/B1) y derechos RUNT.",
+    "tiempo_respuesta": "1 a 2 días hábiles tras aprobar exámenes.",
+    "url_oficial": "https://www.funcionpublica.gov.co/es/suit"
+  },
+  {
+    "id": "SUIT-BOY-002",
+    "titulo": "Liquidación y Pago del Impuesto sobre Vehículos Automotores en Boyacá",
+    "entidad": "Gobernación de Boyacá - Secretaría de Hacienda",
+    "requisitos": "1. Número de placa del vehículo matriculado en Boyacá. 2. Documento de identidad del propietario. 3. Licencia de tránsito para verificar avalúo y cilindraje.",
+    "costo": "Tarifa anual del 1.5%, 2.5% o 3.5% sobre el avalúo comercial fijado por el Ministerio de Transporte.",
+    "tiempo_respuesta": "Inmediato en línea mediante botón PSE o bancos autorizados.",
+    "url_oficial": "https://www.boyaca.gov.co/"
+  },
+  {
+    "id": "SUIT-BOY-003",
+    "titulo": "Expedición de Pasaporte Ordinario o Ejecutivo en Boyacá",
+    "entidad": "Gobernación de Boyacá - Oficina de Pasaportes (Tunja)",
+    "requisitos": "1. Agendar cita previa virtual en la web de la Gobernación de Boyacá. 2. Cédula de Ciudadanía original vigente. 3. Para menores: Registro Civil auténtico y presencia de uno de los padres.",
+    "costo": "Aprox. $207.000 COP (valor Cancillería más estampilla departamental de Boyacá).",
+    "tiempo_respuesta": "3 a 5 días hábiles posteriores al pago y toma de datos biométricos.",
+    "url_oficial": "https://www.funcionpublica.gov.co/es/suit"
+  },
+  {
+    "id": "SUIT-BOY-004",
+    "titulo": "Encuesta e Inclusión en el Sisbén IV",
+    "entidad": "Alcaldías Municipales de Boyacá - Oficina del Sisbén / DNP",
+    "requisitos": "1. Documentos de identidad de todos los integrantes del hogar. 2. Recibo reciente de servicio público con dirección en el municipio. 3. Teléfono y correo electrónico de contacto.",
+    "costo": "Gratuito (sin intermediarios).",
+    "tiempo_respuesta": "15 a 30 días hábiles después de la visita domiciliaria.",
+    "url_oficial": "https://www.sisben.gov.co/"
+  },
+  {
+    "id": "SUIT-BOY-005",
+    "titulo": "Certificado de Tradición y Libertad de Inmuebles",
+    "entidad": "Superintendencia de Notariado y Registro (ORIP Tunja, Sogamoso, Duitama)",
+    "requisitos": "1. Número de Matrícula Inmobiliaria del predio (ej. 070-XXXXX o 095-XXXXX). 2. Medio de pago electrónico (PSE o tarjeta).",
+    "costo": "Aprox. $20.900 COP por consulta digital.",
+    "tiempo_respuesta": "Inmediato (descarga en PDF con firma digital).",
+    "url_oficial": "https://www.funcionpublica.gov.co/es/suit"
+  },
+  {
+    "id": "SUIT-BOY-006",
+    "titulo": "Certificado de Residencia en Municipios de Boyacá",
+    "entidad": "Alcaldías Municipales / Inspecciones de Policía de Boyacá",
+    "requisitos": "1. Copia de Cédula de Ciudadanía. 2. Recibo de servicio público domiciliario no mayor a 2 meses. 3. Certificado de Junta de Acción Comunal (JAC) o declaración juramentada.",
+    "costo": "Gratuito o sujeto a estampilla municipal según el municipio.",
+    "tiempo_respuesta": "1 a 3 días hábiles.",
+    "url_oficial": "https://www.funcionpublica.gov.co/es/suit"
+  },
+  {
+    "id": "SUIT-BOY-007",
+    "titulo": "Inscripción en el Registro Único Tributario (RUT)",
+    "entidad": "Dirección de Impuestos y Aduanas Nacionales (DIAN - Seccional Tunja / Sogamoso)",
+    "requisitos": "1. Cédula de Ciudadanía original. 2. Correo electrónico activo y número celular. 3. Código de actividad económica (CIIU).",
+    "costo": "Gratuito.",
+    "tiempo_respuesta": "Inmediato en línea o en cita presencial.",
+    "url_oficial": "https://www.dian.gov.co/"
+  },
+  {
+    "id": "SUIT-BOY-008",
+    "titulo": "Expedición de Copias del Registro Civil de Nacimiento, Matrimonio o Defunción",
+    "entidad": "Registraduría Nacional del Estado Civil / Notarías de Boyacá",
+    "requisitos": "1. Nombre completo, fecha del hecho y serial o oficina donde se realizó el registro original. 2. Documento de identidad del solicitante.",
+    "costo": "Aprox. $9.800 COP por copia física o $17.850 COP digital.",
+    "tiempo_respuesta": "Inmediato en la oficina de origen o hasta 3 días hábiles en línea.",
+    "url_oficial": "https://www.registraduria.gov.co/"
+  },
+  {
+    "id": "SUIT-BOY-009",
+    "titulo": "Certificado de Antecedentes Disciplinarios",
+    "entidad": "Procuraduría General de la Nación",
+    "requisitos": "1. Número de Cédula de Ciudadanía, Cédula de Extranjería o NIT. 2. Acceso al portal web institucional.",
+    "costo": "Gratuito.",
+    "tiempo_respuesta": "Inmediato (descarga directa en PDF).",
+    "url_oficial": "https://www.procuraduria.gov.co/"
+  },
+  {
+    "id": "SUIT-BOY-010",
+    "titulo": "Certificado de Antecedentes Fiscales",
+    "entidad": "Contraloría General de la República",
+    "requisitos": "1. Tipo y número de documento de identidad (CC, CE o NIT).",
+    "costo": "Gratuito.",
+    "tiempo_respuesta": "Inmediato en línea.",
+    "url_oficial": "https://www.contraloria.gov.co/"
+  },
+  {
+    "id": "SUIT-BOY-011",
+    "titulo": "Constancia de Antecedentes Judiciales",
+    "entidad": "Policía Nacional de Colombia",
+    "requisitos": "1. Número de Cédula de Ciudadanía y fecha de expedición del documento.",
+    "costo": "Gratuito.",
+    "tiempo_respuesta": "Inmediato en línea.",
+    "url_oficial": "https://antecedentes.policia.gov.co/"
+  },
+  {
+    "id": "SUIT-BOY-012",
+    "titulo": "Liquidación y Pago del Impuesto Predial Unificado",
+    "entidad": "Alcaldías Municipales de Boyacá - Secretaría de Hacienda Municipal",
+    "requisitos": "1. Número catastral o matrícula inmobiliaria del predio. 2. Identificación del propietario.",
+    "costo": "Calculado según avalúo catastral vigente y estrato o destino económico del predio.",
+    "tiempo_respuesta": "Inmediato en portales tributarios municipales o ventanilla.",
+    "url_oficial": "https://www.funcionpublica.gov.co/es/suit"
+  },
+  {
+    "id": "SUIT-BOY-013",
+    "titulo": "Renovación de Licencia de Conducción",
+    "entidad": "Organismos de Tránsito Municipales y Departamentales de Boyacá",
+    "requisitos": "1. Inscripción en RUNT. 2. Cédula de Ciudadanía original. 3. Examen médico CRC vigente. 4. Estar a paz y salvo por infracciones en SIMIT.",
+    "costo": "Entre $118.000 y $215.000 COP según categoría y organismo de tránsito.",
+    "tiempo_respuesta": "1 día hábil.",
+    "url_oficial": "https://www.funcionpublica.gov.co/es/suit"
+  },
+  {
+    "id": "SUIT-BOY-014",
+    "titulo": "Traspaso de Propiedad de Vehículo Automotor",
+    "entidad": "Organismos de Tránsito de Boyacá",
+    "requisitos": "1. Contrato de compraventa con improntas adheridas. 2. Formulario Único Nacional (FUN) diligenciado. 3. SOAT y Revisión Técnico-Mecánica vigentes. 4. Paz y salvo de impuestos y multas.",
+    "costo": "Derechos de traspaso RUNT + Retención en la fuente (1% sobre avalúo comercial).",
+    "tiempo_respuesta": "1 a 3 días hábiles.",
+    "url_oficial": "https://www.funcionpublica.gov.co/es/suit"
+  },
+  {
+    "id": "SUIT-BOY-015",
+    "titulo": "Inscripción de Matrícula Mercantil (Persona Natural o SAS)",
+    "entidad": "Cámara de Comercio de Tunja, Duitama o Sogamoso",
+    "requisitos": "1. Consulta de homonimia del nombre comercial. 2. Formulario RUES diligenciado. 3. Cédula de Ciudadanía del comerciante o representante legal y Pre-RUT.",
+    "costo": "Liquidado según los activos declarados al momento de la constitución.",
+    "tiempo_respuesta": "1 a 2 días hábiles.",
+    "url_oficial": "https://www.rues.org.co/"
+  },
+  {
+    "id": "SUIT-BOY-016",
+    "titulo": "Solicitud de Licencia de Construcción (Obra Nueva o Ampliación)",
+    "entidad": "Curadurías Urbanas (Tunja, Sogamoso, Duitama) / Oficinas de Planeación Municipal",
+    "requisitos": "1. Formulario Único Nacional. 2. Certificado de Tradición y Libertad (máx. 30 días). 3. Planos arquitectónicos y estructurales firmados por profesionales idóneos. 4. Copia de impuesto predial.",
+    "costo": "Expensas fijas y variables según metros cuadrados y estrato.",
+    "tiempo_respuesta": "Hasta 45 días hábiles según complejidad del proyecto.",
+    "url_oficial": "https://www.funcionpublica.gov.co/es/suit"
+  },
+  {
+    "id": "SUIT-BOY-017",
+    "titulo": "Afiliación al Sistema General de Seguridad Social en Salud (Régimen Subsidiado o Contributivo)",
+    "entidad": "Secretarías de Salud Municipales de Boyacá / EPS / Portal Mi Seguridad Social",
+    "requisitos": "1. Documento de identidad del cotizante y beneficiarios. 2. Encuesta Sisbén IV (grupos A, B o C) para régimen subsidiado o contrato laboral/ingresos para contributivo.",
+    "costo": "Gratuito en régimen subsidiado; aporte porcentual según IBC en contributivo.",
+    "tiempo_respuesta": "Inmediato (activación de urgencias desde el registro).",
+    "url_oficial": "https://www.miseguridadsocial.gov.co/"
+  },
+  {
+    "id": "SUIT-BOY-018",
+    "titulo": "Duplicado de Cédula de Ciudadanía Digital o Física",
+    "entidad": "Registraduría Nacional del Estado Civil (Sedes Boyacá)",
+    "requisitos": "1. Solicitud en línea o presencial. 2. Comprobante de pago de derechos de duplicado. 3. Correo electrónico y celular personales.",
+    "costo": "Aprox. $68.900 COP (exento en casos especiales de vulnerabilidad acreditada).",
+    "tiempo_respuesta": "48 horas para activación digital; 15 a 30 días hábiles para entrega física.",
+    "url_oficial": "https://www.registraduria.gov.co/"
+  },
+  {
+    "id": "SUIT-BOY-019",
+    "titulo": "Solicitud de Certificado de Libertad de Gravámenes o Paz y Salvo de Valorización",
+    "entidad": "Instituto de Tránsito de Boyacá / Oficinas de Valorización Municipal",
+    "requisitos": "1. Número de matrícula inmobiliaria o cédula catastral. 2. Estar al día en contribuciones municipales.",
+    "costo": "Entre $15.000 y $35.000 COP según municipio.",
+    "tiempo_respuesta": "1 a 2 días hábiles.",
+    "url_oficial": "https://www.funcionpublica.gov.co/es/suit"
+  },
+  {
+    "id": "SUIT-BOY-020",
+    "titulo": "Permiso de Aprovechamiento Forestal de Árboles Aislados",
+    "entidad": "Corporación Autónoma Regional de Boyacá (Corpoboyacá) / Corpochivor",
+    "requisitos": "1. Formulario Único Nacional de solicitud. 2. Certificado de Tradición y Libertad del predio. 3. Ubicación georreferenciada e inventario de los individuos arbóreos.",
+    "costo": "Evaluación técnica liquidada según el volumen maderable solicitado.",
+    "tiempo_respuesta": "20 a 30 días hábiles tras visita técnica ambiental.",
+    "url_oficial": "https://www.corpoboyaca.gov.co/"
+  }
+]
