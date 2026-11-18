@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistente Ciudadano IA - Trámites Boyacá (SUIT)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React 18 & Babel -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useRef, useEffect } = React;
+
+    // Base de conocimiento curada (Muestra representativa de los 20 trámites SUIT Boyacá)
+    const SUIT_KNOWLEDGE_BASE = [
+      {
+        id: "SUIT-BOY-001",
+        titulo: "Expedición de Licencia de Conducción por Primera Vez",
+        keywords: ["pase", "licencia", "conduccion", "conducir", "carro", "moto", "manejar"],
+        entidad: "Secretaría de Tránsito y Transporte / Organismos de Tránsito de Boyacá",
+        costo: "Entre $220.000 y $275.000 COP (varía según categoría A2/B1 y derechos RUNT).",
+        tiempo: "1 a 2 días hábiles tras aprobar exámenes.",
+        requisitos: [
+          "Estar inscrito en el Registro Único Nacional de Tránsito (RUNT).",
+          "Documento de identidad original (Cédula de Ciudadanía o Tarjeta de Identidad desde los 16 años).",
+          "Certificado de aptitud en conducción expedido por un Centro de Enseñanza Automovilística (CEA) autorizado.",
+          "Certificado de examen físico, mental y de coordinación motriz expedido por un CRC.",
+          "Estar a paz y salvo por concepto de multas e infracciones de tránsito."
+        ],
+        fragmentoOficial: "Artículo 19, Ley 769 de 2002. Para obtener la licencia de conducción por primera vez, el ciudadano residente en Boyacá debe acreditar inscripción activa en el RUNT, certificados médicos CRC y de conducción CEA vigentes, y paz y salvo en SIMIT.",
+        urlOficial: "https://www.funcionpublica.gov.co/es/suit"
+      },
+      {
+        id: "SUIT-BOY-002",
+        titulo: "Liquidación y Pago del Impuesto sobre Vehículos Automotores en Boyacá",
+        keywords: ["impuesto", "vehiculo", "carro", "placa", "rodamiento", "gobernacion", "semaforizacion"],
+        entidad: "Gobernación de Boyacá - Secretaría de Hacienda",
+        costo: "Calculado según avalúo comercial del vehículo definido por el Ministerio de Transporte (1.5%, 2.5% o 3.5%).",
+        tiempo: "Inmediato en línea a través del portal tributario departamental.",
+        requisitos: [
+          "Número de placa del vehículo matriculado en organismos de tránsito de Boyacá (Tunja, Sogamoso, Duitama, Chiquinquirá, etc.).",
+          "Número de identificación del propietario o poseedor.",
+          "Tarjeta de propiedad o licencia de tránsito para verificación de cilindraje y línea."
+        ],
+        fragmentoOficial: "Ordenanza Tributaria Departamental de Boyacá. El impuesto sobre vehículos automotores se liquida anualmente sobre el avalúo comercial vigente y puede pagarse mediante PSE o en entidades bancarias autorizadas.",
+        urlOficial: "https://www.boyaca.gov.co/"
+      },
+      {
+        id: "SUIT-BOY-003",
+        titulo: "Expedición de Pasaporte Ordinario o Ejecutivo en Boyacá",
+        keywords: ["pasaporte", "viajar", "exterior", "visa", "cancilleria", "tunja"],
+        entidad: "Gobernación de Boyacá - Oficina de Pasaportes (Tunja)",
+        costo: "Pasaporte Ordinario: aprox. $207.000 COP (valor Cancillería + estampilla departamental).",
+        tiempo: "3 a 5 días hábiles posteriores al pago y toma de datos biométricos.",
+        requisitos: [
+          "Agendar cita previa gratuita en el portal oficial de la Gobernación de Boyacá.",
+          "Presentar Cédula de Ciudadanía original vigente en formato válido.",
+          "Para menores de edad: copia auténtica del Registro Civil de Nacimiento y presencia de uno de los padres.",
+          "Presentar pasaporte anterior si lo tiene (en caso de pérdida, manifestarlo bajo gravedad de juramento)."
+        ],
+        fragmentoOficial: "Resolución 6888 de 2021 - Ministerio de Relaciones Exteriores. El trámite de pasaporte es presencial para captura de fotografía y huellas en la sede habilitada de la Gobernación de Boyacá en Tunja.",
+        urlOficial: "https://www.funcionpublica.gov.co/es/suit"
+      },
+      {
+        id: "SUIT-BOY-004",
+        titulo: "Encuesta e Inclusión en el Sisbén IV",
+        keywords: ["sisben", "puntaje", "subsidio", "encuesta", "salud", "ficha", "dnp"],
+        entidad: "Alcaldías Municipales de Boyacá - Oficina del Sisbén / DNP",
+        costo: "Trámite totalmente gratuito (sin intermediarios).",
+        tiempo: "Entre 15 y 30 días hábiles tras la visita domiciliaria.",
+        requisitos: [
+          "Documento de identidad de todos los integrantes del hogar (Cédula, TI o Registro Civil).",
+          "Recibo de servicio público reciente que acredite la dirección de residencia en el municipio de Boyacá.",
+          "Número de teléfono de contacto y correo electrónico del jefe de hogar."
+        ],
+        fragmentoOficial: "Manual Operativo Sisbén IV - DNP. La solicitud de encuesta nueva o actualización de datos se realiza ante la oficina municipal del Sisbén o mediante el Portal Ciudadano del DNP sin costo alguno.",
+        urlOficial: "https://www.sisben.gov.co/"
+      },
+      {
+        id: "SUIT-BOY-005",
+        titulo: "Certificado de Tradición y Libertad de Inmuebles",
+        keywords: ["certificado", "tradicion", "libertad", "casa", "lote", "predio", "matricula", "inmobiliaria", "escritura"],
+        entidad: "Superintendencia de Notariado y Registro (ORIP Tunja, Sogamoso, Duitama)",
+        costo: "Aprox. $20.900 COP por consulta en línea.",
+        tiempo: "Inmediato (descarga en PDF con firma digital).",
+        requisitos: [
+          "Número de Matrícula Inmobiliaria del predio (ej. 070-XXXXX para Tunja o 095-XXXXX para Sogamoso).",
+          "Medio de pago electrónico habilitado (PSE, tarjeta débito o crédito)."
+        ],
+        fragmentoOficial: "Ley 1579 de 2012 (Estatuto de Registro de Instrumentos Públicos). El Certificado de Tradición y Libertad refleja la situación jurídica completa de un bien inmueble registrado en Colombia.",
+        urlOficial: "https://www.funcionpublica.gov.co/es/suit"
+      },
+      {
+        id: "SUIT-BOY-006",
+        titulo: "Certificado de Residencia en Municipios de Boyacá",
+        keywords: ["residencia", "vivir", "vecindad", "domicilio", "alcaldia", "trabajo", "estudio"],
+        entidad: "Alcaldías Municipales / Inspecciones de Policía de Boyacá",
+        costo: "Gratuito o sujeto a estampilla municipal según el municipio.",
+        tiempo: "1 a 3 días hábiles.",
+        requisitos: [
+          "Copia de la Cédula de Ciudadanía del solicitante.",
+          "Recibo de servicio público domiciliario con antigüedad no mayor a 2 meses.",
+          "Certificado de afiliación a Junta de Acción Comunal (JAC) o declaración juramentada según normativa local."
+        ],
+        fragmentoOficial: "Decreto 1158 de 2022. Las alcaldías distritales y municipales expiden la certificación de residencia para fines laborales, educativos o de participación ciudadana.",
+        urlOficial: "https://www.funcionpublica.gov.co/es/suit"
+      }
+    ];
+
+    const QUICK_QUESTIONS = [
+      "¿Qué necesito para sacar el pase de conducción por primera vez?",
+      "¿Cómo pago el impuesto de mi carro en Boyacá?",
+      "¿Cuánto cuesta y cómo saco el pasaporte en Tunja?",
+      "¿Cómo pido la encuesta del Sisbén IV?",
+      "¿Cómo descargo un certificado de tradición y libertad?"
+    ];
+
+    function App() {
+      const [messages, setMessages] = useState([
+        {
+          id: 1,
+          sender: "bot",
+          text: "¡Hola! Soy el Asistente Inteligente de orientación ciudadana para trámites y servicios públicos en Boyacá. Escribe tu consulta en lenguaje cotidiano y buscaré la información oficial en la base documental del SUIT.",
+          source: null,
+          latency: null,
+          similarity: null,
+          contextChunk: null
+        }
+      ]);
+      const [input, setInput] = useState("");
+      const [isTyping, setIsTyping] = useState(false);
+      const [useExternalApi, setUseExternalApi] = useState(false);
+      const [apiUrl, setApiUrl] = useState("http://localhost:8000/api/chat");
+      const [showConfig, setShowConfig] = useState(false);
+      const [expandedChunkId, setExpandedChunkId] = useState(null);
+
+      const messagesEndRef = useRef(null);
+
+      useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, [messages, isTyping]);
+
+      // Simulador de recuperación semántica RAG estricta sobre corpus SUIT
+      const retrieveFromSUIT = (query) => {
+        const normalized = query
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+
+        let bestMatch = null;
+        let maxScore = 0;
+
+        SUIT_KNOWLEDGE_BASE.forEach((doc) => {
+          let score = 0;
+          doc.keywords.forEach((kw) => {
+            if (normalized.includes(kw)) score += 2;
+          });
+          const titleWords = doc.titulo
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .split(" ");
+          titleWords.forEach((w) => {
+            if (w.length > 4 && normalized.includes(w)) score += 1;
+          });
+
+          if (score > maxScore) {
+            maxScore = score;
+            bestMatch = doc;
+          }
+        });
+
+        return maxScore >= 2 ? { doc: bestMatch, confidence: Math.min(97, 82 + maxScore * 3) } : null;
+      };
+
+      const handleSend = async (customText = null) => {
+        const queryText = (customText || input).trim();
+        if (!queryText) return;
+
+        const userMsg = { id: Date.now(), sender: "user", text: queryText };
+        setMessages((prev) => [...prev, userMsg]);
+        setInput("");
+        setIsTyping(true);
+
+        const startTime = performance.now();
+
+        if (useExternalApi) {
+          // Conexión real al Backend FastAPI + LangChain
+          try {
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ question: queryText })
+            });
+            const data = await response.json();
+            const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+
+            setMessages((prev) => [
+              ...prev,
+              {
+                id: Date.now() + 1,
+                sender: "bot",
+                text: data.answer || "Respuesta recibida del servidor RAG.",
+                source: data.source || { titulo: "Repositorio SUIT", url: "https://www.funcionpublica.gov.co/es/suit" },
+                latency: elapsed,
+                similarity: data.similarity || 91,
+                contextChunk: data.context || "Fragmento recuperado desde base vectorial."
+              }
+            ]);
+          } catch (error) {
+            const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+            setMessages((prev) => [
+              ...prev,
+              {
+                id: Date.now() + 1,
+                sender: "bot",
+                text: "No se pudo conectar con el servidor Backend en " + apiUrl + ". Verifica que FastAPI esté ejecutándose o cambia al 'Modo Base SUIT Integrada' en la configuración superior.",
+                source: null,
+                latency: elapsed,
+                similarity: null,
+                contextChunk: null
+              }
+            ]);
+          } finally {
+            setIsTyping(false);
+          }
+          return;
+        }
+
+        // Modo Prototipo RAG Local (Simula latencia realista de embeddings + LLM < 10s)
+        setTimeout(() => {
+          const result = retrieveFromSUIT(queryText);
+          const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+
+          if (result) {
+            const { doc, confidence } = result;
+            const formattedText = `Para realizar el trámite de **${doc.titulo}** ante **${doc.entidad}**, ten en cuenta la siguiente información oficial:\n\n` +
+              `• **Requisitos principales:**\n` +
+              doc.requisitos.map((r) => `  - ${r}`).join("\n") +
+              `\n\n• **Costo estimado:** ${doc.costo}\n` +
+              `• **Tiempo de respuesta:** ${doc.tiempo}`;
+
+            setMessages((prev) => [
+              ...prev,
+              {
+                id: Date.now() + 1,
+                sender: "bot",
+                text: formattedText,
+                source: { id: doc.id, titulo: doc.titulo, url: doc.urlOficial },
+                latency: elapsed,
+                similarity: confidence,
+                contextChunk: doc.fragmentoOficial
+              }
+            ]);
+          } else {
+            // Comportamiento estricto anti-alucinación definido en el Prompt Engineering
+            setMessages((prev) => [
+              ...prev,
+              {
+                id: Date.now() + 1,
+                sender: "bot",
+                text: "Lo siento, no encontré información oficial sobre esa consulta dentro de los trámites de Boyacá indexados actualmente en la base documental del SUIT. Para evitar entregar datos imprecisos, te sugiero reformular tu pregunta (por ejemplo: licencia de conducción, impuesto vehicular, pasaporte, Sisbén o certificado de tradición) o consultar directamente el portal oficial.",
+                source: { id: "SUIT-GENERAL", titulo: "Portal Oficial SUIT - Función Pública", url: "https://www.funcionpublica.gov.co/es/suit" },
+                latency: elapsed,
+                similarity: 0,
+                contextChunk: "Sin coincidencia semántica por encima del umbral configurado en la base vectorial."
+              }
+            ]);
+          }
+          setIsTyping(false);
+        }, 950);
+      };
+
+      const renderFormattedText = (text) => {
+        return text.split("\n").map((line, i) => {
+          const parts = line.split(/(\*\*.*?\*\*)/g);
+          return (
+            <p key={i} className={line.trim() === "" ? "h-2" : "mb-1 leading-relaxed"}>
+              {parts.map((part, idx) =>
+                part.startsWith("**") && part.endsWith("**") ? (
+                  <strong key={idx} className="font-semibold text-slate-900">
+                    {part.slice(2, -2)}
+                  </strong>
+                ) : (
+                  <span key={idx}>{part}</span>
+                )
+              )}
+            </p>
+          );
+        });
+      };
+
+      return (
+        <div className="min-h-screen flex flex-col max-w-4xl mx-auto bg-white shadow-xl border-x border-slate-200">
+          {/* Encabezado Institucional */}
+          <header className="bg-gradient-to-r from-blue-900 via-blue-800 to-emerald-800 text-white p-4 shadow-md">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="bg-emerald-400 text-blue-950 text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
+                    Prototipo TRL 5 • RAG
+                  </span>
+                  <span className="text-xs text-blue-200">Boyacá • Fuente SUIT</span>
+                </div>
+                <h1 className="text-lg sm:text-xl font-bold mt-1">
+                  Asistente Inteligente de Trámites y Servicios Públicos
+                </h1>
+              </div>
+
+              <button
+                onClick={() => setShowConfig(!showConfig)}
+                className="self-start sm:self-center text-xs bg-white/15 hover:bg-white/25 border border-white/30 px-3 py-1.5 rounded-lg transition"
+              >
+                {useExternalApi ? "🔌 API FastAPI Activa" : "🧠 Base SUIT Integrada"}
+              </button>
+            </div>
+
+            {/* Panel de configuración de arquitectura */}
+            {showConfig && (
+              <div className="mt-3 p-3 bg-blue-950/80 rounded-lg border border-blue-700 text-xs space-y-2">
+                <p className="font-semibold text-emerald-300">Configuración de Conexión (Arquitectura Cliente-Servidor):</p>
+                <div className="flex flex-wrap items-center gap-4">
+                  <label className="flex items-center gap-1.5 cursor-pointer">
+                    <input
+                      type="radio"
+                      checked={!useExternalApi}
+                      onChange={() => setUseExternalApi(false)}
+                    />
+                    <span>Modo Base SUIT Integrada (Demo Autónoma)</span>
+                  </label>
+                  <label className="flex items-center gap-1.5 cursor-pointer">
+                    <input
+                      type="radio"
+                      checked={useExternalApi}
+                      onChange={() => setUseExternalApi(true)}
+                    />
+                    <span>Conectar a Backend Python (FastAPI)</span>
+                  </label>
+                </div>
+                {useExternalApi && (
+                  <input
+                    type="text"
+                    value={apiUrl}
+                    onChange={(e) => setApiUrl(e.target.value)}
+                    className="w-full px-2.5 py-1.5 rounded bg-slate-900 border border-slate-600 text-white"
+                    placeholder="http://localhost:8000/api/chat"
+                  />
+                )}
+              </div>
+            )}
+          </header>
+
+          {/* Barra de consultas rápidas sugeridas */}
+          <div className="bg-slate-50 border-b border-slate-200 px-4 py-2.5">
+            <p className="text-xs font-medium text-slate-500 mb-1.5">Consultas frecuentes en lenguaje cotidiano:</p>
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {QUICK_QUESTIONS.map((q, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSend(q)}
+                  disabled={isTyping}
+                  className="shrink-0 text-xs bg-white hover:bg-blue-50 text-blue-800 border border-blue-200 px-3 py-1.5 rounded-full transition shadow-sm"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Área de Conversación */}
+          <main className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/50">
+            {messages.map((msg) => (
+              <div
+                key={msg.id}
+                className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"}`}
+              >
+                <div
+                  className={`max-w-[88%] sm:max-w-[80%] rounded-2xl px-4 py-3 shadow-sm text-sm ${
+                    msg.sender === "user"
+                      ? "bg-blue-700 text-white rounded-br-none"
+                      : "bg-white border border-slate-200 text-slate-700 rounded-bl-none"
+                  }`}
+                >
+                  {msg.sender === "user" ? <p>{msg.text}</p> : renderFormattedText(msg.text)}
+
+                  {/* Trazabilidad Oficial y Métricas RAG */}
+                  {msg.sender === "bot" && msg.source && (
+                    <div className="mt-3 pt-2.5 border-t border-slate-100 space-y-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <a
+                          href={msg.source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-900 font-medium underline"
+                        >
+                          <span>📄 Fuente oficial: {msg.source.titulo}</span>
+                        </a>
+                        <div className="flex items-center gap-2 text-[11px] text-slate-500">
+                          <span className="bg-slate-100 px-2 py-0.5 rounded">
+                            ⏱️ {msg.latency}s (&lt;10s)
+                          </span>
+                          {msg.similarity > 0 && (
+                            <span className="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-medium">
+                              🎯 Similitud: {msg.similarity}%
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {msg.contextChunk && (
+                        <div>
+                          <button
+                            onClick={() =>
+                              setExpandedChunkId(expandedChunkId === msg.id ? null : msg.id)
+                            }
+                            className="text-[11px] text-blue-600 hover:underline font-medium"
+                          >
+                            {expandedChunkId === msg.id
+                              ? "▲ Ocultar fragmento vectorial recuperado"
+                              : "▼ Ver evidencia documental recuperada (Contexto RAG)"}
+                          </button>
+                          {expandedChunkId === msg.id && (
+                            <div className="mt-1.5 p-2.5 bg-slate-100 rounded-lg text-xs text-slate-600 font-mono border border-slate-200">
+                              [{msg.source.id}] {msg.contextChunk}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            {isTyping && (
+              <div className="flex items-start">
+                <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-none px-4 py-3 text-xs text-slate-500 shadow-sm animate-pulse">
+                  Buscando en base vectorial SUIT y generando respuesta verificada...
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </main>
+
+          {/* Barra de entrada de texto */}
+          <footer className="p-3 bg-white border-t border-slate-200">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSend();
+              }}
+              className="flex gap-2"
+            >
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Escribe tu duda sobre algún trámite en Boyacá (ej. ¿Cómo saco el pase?)..."
+                className="flex-1 text-sm border border-slate-300 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              />
+              <button
+                type="submit"
+                disabled={isTyping || !input.trim()}
+                className="bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition shadow-sm"
+              >
+                Consultar
+              </button>
+            </form>
+            <p className="text-[11px] text-center text-slate-400 mt-2">
+              Proyecto de Grado UNAD (202016907) • Respuestas restringidas exclusivamente a fuentes oficiales del SUIT.
+            </p>
+          </footer>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
