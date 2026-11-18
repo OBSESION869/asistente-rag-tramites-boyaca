@@ -1,0 +1,17 @@
+# Claves privadas y variables de entorno
+.env
+*.env
+
+# Archivos temporales y entornos de Python
+venv/
+__pycache__/
+*.py[cod]
+
+# Dependencias pesadas de React / Node
+node_modules/
+dist/
+build/
+
+# Archivos basura del sistema operativo
+.DS_Store
+Thumbs.db
